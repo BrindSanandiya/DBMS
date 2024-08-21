@@ -1253,7 +1253,7 @@ select departmentname, count(personname) from person p join dept d on d.departme
 select max(salary), min(salary), departmentname from person p join dept d on d.departmentid  = p.departmentid group by departmentname
 
 --Find city wise total, average, maximum and minimum salary.
-select sum(salary) as total, avg(salary) as average, max(salary) as max, min(salary) as min from person p join dept d on p.departmentid= d.departmentid 
+select sum(salary) as total, avg(salary) as average, max(salary) as max, min(salary) as min from person p join dept d on p.departmentid= d.departmentid group by city
 
 --Find the average salary of a person who belongs to Ahmedabad city.
 select avg(salary) from person where city = 'ahmedabad'
