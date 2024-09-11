@@ -1260,3 +1260,30 @@ select avg(salary) from person where city = 'ahmedabad'
 
 --Produce Output Like: <PersonName> lives in <City> and works in <DepartmentName> Department. (In single column)
 select personname + ' lives in ' + city + ' and works in ' + departmentname + ' department.' from person p full outer join dept d on d.departmentid = p.departmentid 
+
+
+----PART - B
+
+--Produce Output Like: <PersonName> earns <Salary> from <DepartmentName> department monthly. (In single column)
+select personname + ' earns ' + cast(salary as varchar) + ' from ' + departmentname + ' department monthly. ' from dept d join person p on d.departmentid = p.departmentid
+
+--Find city & department wise total, average & maximum salaries.
+select sum(salary) as total, avg(salary) as average, city, departmentname from person p join dept d on d.departmentid = p.departmentid group by city,departmentname
+
+--Find all persons who do not belong to any department.
+select personname from person p full outer join dept d on d.departmentid = p.departmentid where d.departmentid is null
+
+--Find all departments whose total salary is exceeding 100000.
+select sum(salary), departmentname from dept d join person p on d.departmentid = p.departmentid group by departmentname having sum(salary) > 100000 
+
+
+----PART - C
+
+--List all departments who have no person.
+select departmentname from person p full outer join dept d on d.departmentid = p.departmentid where p.departmentid is null
+
+--List out department names in which more than two persons are working.
+select departmentname, count(personname) from dept d join person p gourp by departmentname having count(personname) > 2
+
+--Give a 10% increment in the computer department employee’s salary. (Use Update)
+update person set salary = salary*1.1 from person join dept on dept.departmentid = person.departmentid  where departmentname = 'computer'
